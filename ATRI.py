@@ -113,11 +113,11 @@ def main():
             while True:
                 mainwork.mainWork(sheet1,args.Imagepath,args.skip)
                 time.sleep(0.1)
-                print("等待0.1秒")
+                print("完整流程结束一次，休息0.1秒~")
         else:
             #不循环，运行一次
             mainwork.mainWork(sheet1,args.Imagepath,args.skip)
-            print("成功运行流程一次！")  
+            print("成功运行流程一次~")  
     else:
         print('Excel表格数据输入有误!')
     

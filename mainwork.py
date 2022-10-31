@@ -68,7 +68,9 @@ def mainWork(sheet1,imgpath,skip):
             img = imgpath+"\\"+sheet1.row(i)[1].value
             #取重试次数
             reTry = 1
-            if sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
+            if skip:
+                reTry=0
+            elif sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
                 reTry = sheet1.row(i)[2].value
             mouseClick(2,"left",img,reTry)
             print("左键双击",img)
@@ -78,7 +80,9 @@ def mainWork(sheet1,imgpath,skip):
             img = imgpath+"\\"+ sheet1.row(i)[1].value
             #取重试次数
             reTry = 1
-            if sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
+            if skip:
+                reTry=0
+            elif sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
                 reTry = sheet1.row(i)[2].value
             mouseClick(1,"right",img,reTry)
             print("右键单击",img) 
