@@ -93,9 +93,11 @@ def readexcel(filepath):
        ])
 def main():
     #设置图形化界面
+    # ,default="D:\GitHub\ATravelerRecognizeImage\\test1.xlsx"
+    # ,default="D:\GitHub\ATravelerRecognizeImage\\image"
     parser = GooeyParser(description="基于图像匹配的自动操作脚本") 
-    parser.add_argument('Excelpath', metavar="Excel路径", widget="FileChooser",default="D:\GitHub\ATravelerRecognizeImage\\test1.xlsx")
-    parser.add_argument('Imagepath', metavar="图片文件夹", widget="DirChooser",default="D:\GitHub\ATravelerRecognizeImage\\image")
+    parser.add_argument('Excelpath', metavar="Excel路径", widget="FileChooser")
+    parser.add_argument('Imagepath', metavar="图片文件夹", widget="DirChooser")
     parser.add_argument('-loop', help="是否无限循环?",metavar="循环",widget="CheckBox",action="store_true")
     parser.add_argument('-skip', help="十次未匹配不到图片跳过该图",metavar="跳过",widget="CheckBox",action="store_true")
     args = parser.parse_args()
