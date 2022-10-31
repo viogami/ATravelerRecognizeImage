@@ -1,0 +1,5 @@
+pyautogui
+time
+xlrd (if you want to open the file extension .xlsx,please install the version of 1.2.0)
+pyperclip
+gooey
