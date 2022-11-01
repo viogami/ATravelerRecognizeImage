@@ -2,7 +2,10 @@ import pyautogui
 import time
 import pyperclip
 
-#定义鼠标事件
+#将鼠标移到屏幕的左上角，来抛出failSafeException异常
+pyautogui.FAILSAFE = True
+
+#定义鼠标点击事件
 def mouseClick(clickTimes,lOrR,img,reTry):
     if reTry == 1:
         while True:
@@ -40,12 +43,56 @@ def mouseClick(clickTimes,lOrR,img,reTry):
             print("未匹配到图片"+img+",0.2秒后重试")
             time.sleep(0.2)
 
+#定义鼠标移动事件
+def mousemove(img,reTry):
+    if reTry == 1:
+        while True:
+            location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
+            if location is not None:
+                pyautogui.moveTo(location.x,location.y,duration=0.2)
+                break
+            print("未匹配到图片"+img+",0.1秒后重试")
+            time.sleep(0.1)
+    elif reTry == -1:
+        while True:
+            location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
+            if location is not None:
+                pyautogui.moveTo(location.x,location.y,duration=0.2)
+            print("未匹配到图片"+img+",0.1秒后重试")
+            time.sleep(0.1)
+    elif reTry > 1:
+        i = 1
+        while i < reTry + 1:
+            location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
+            if location is not None:
+                pyautogui.moveTo(location.x,location.y,duration=0.2)
+                print("0.1秒后重复执行一次！")
+                i += 1
+            time.sleep(0.1)
+    #retry=0,意味着多次匹配不到可以跳过
+    elif reTry==0:
+        location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
+        i=0
+        while i<10:
+            if location is not None:
+                pyautogui.moveTo(location.x,location.y,duration=0.2)
+                break
+            i=i+1
+            print("未匹配到图片"+img+",0.2秒后重试")
+            time.sleep(0.2)
+
+
+
+#定义键盘事件
+def keyboardClick(key):
+    pyautogui.press(key)
+
 
 
 #定义任务 对于参数有： 
 # sheet1:字符型，Excel表格文件位置
 # imgpath：字符型，图片文件位置
-# skip：布尔型，是否retry=0
+# skip：布尔型，是否使得retry=0
 
 def mainWork(sheet1,imgpath,skip):
     i = 1
@@ -106,5 +153,14 @@ def mainWork(sheet1,imgpath,skip):
             pyautogui.scroll(int(scroll))
             print("滚轮滑动，距离：",int(scroll))  
         elif cmdType.value == 7.0:
-            continue                  
+            #取图片名称
+            img = imgpath+"\\"+ sheet1.row(i)[1].value   
+            #取重试次数
+            reTry = 1
+            if skip:
+                reTry=0
+            elif sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
+                reTry = sheet1.row(i)[2].value 
+            mousemove(img,reTry)
+            print("鼠标移动到图片\n"+img+" 的位置")               
         i += 1
