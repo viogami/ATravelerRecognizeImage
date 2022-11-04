@@ -1,5 +1,7 @@
 pyautogui
+opencv-python
+pillow
 time
-xlrd (if you want to open the file extension .xlsx,please install the version of 1.2.0)
+xlrd==1.2.0
 pyperclip
 gooey

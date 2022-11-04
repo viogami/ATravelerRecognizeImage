@@ -6,12 +6,12 @@ import pyperclip
 pyautogui.FAILSAFE = True
 
 #定义鼠标点击事件
-def mouseClick(clickTimes,lOrR,img,reTry):
+def mouseClick(clickTimes,lOrR,img,reTry,intervaltime,durationtime):
     if reTry == 1:
         while True:
             location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
             if location is not None:
-                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=0.2,duration=0.2,button=lOrR)
+                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=intervaltime,duration=durationtime,button=lOrR)
                 break
             print("未匹配到图片"+img+",0.1秒后重试")
             time.sleep(0.1)
@@ -19,7 +19,7 @@ def mouseClick(clickTimes,lOrR,img,reTry):
         while True:
             location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
             if location is not None:
-                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=0.2,duration=0.2,button=lOrR)
+                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=intervaltime,duration=durationtime,button=lOrR)
             print("未匹配到图片"+img+",0.1秒后重试")
             time.sleep(0.1)
     elif reTry > 1:
@@ -27,7 +27,7 @@ def mouseClick(clickTimes,lOrR,img,reTry):
         while i < reTry + 1:
             location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
             if location is not None:
-                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=0.2,duration=0.2,button=lOrR)
+                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=intervaltime,duration=durationtime,button=lOrR)
                 print("0.1秒后重复执行一次！")
                 i += 1
             time.sleep(0.1)
@@ -94,7 +94,7 @@ def keyboardClick(key):
 # imgpath：字符型，图片文件位置
 # skip：布尔型，是否使得retry=0
 
-def mainWork(sheet1,imgpath,skip):
+def mainWork(sheet1,imgpath,skip,time1,time2):
     i = 1
     while i < sheet1.nrows:
         #取本行指令的操作类型
@@ -107,7 +107,7 @@ def mainWork(sheet1,imgpath,skip):
                 reTry=0
             elif sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
                 reTry = sheet1.row(i)[2].value
-            mouseClick(1,"left",img,reTry)
+            mouseClick(1,"left",img,reTry,time1,time2)
             print("单击左键",img)
         #2代表双击左键
         elif cmdType.value == 2.0:
@@ -119,7 +119,7 @@ def mainWork(sheet1,imgpath,skip):
                 reTry=0
             elif sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
                 reTry = sheet1.row(i)[2].value
-            mouseClick(2,"left",img,reTry)
+            mouseClick(2,"left",img,reTry,time1,time2)
             print("左键双击",img)
         #3代表右键
         elif cmdType.value == 3.0:
@@ -131,7 +131,7 @@ def mainWork(sheet1,imgpath,skip):
                 reTry=0
             elif sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
                 reTry = sheet1.row(i)[2].value
-            mouseClick(1,"right",img,reTry)
+            mouseClick(1,"right",img,reTry,time1,time2)
             print("右键单击",img) 
         #4代表输入
         elif cmdType.value == 4.0:
@@ -162,5 +162,15 @@ def mainWork(sheet1,imgpath,skip):
             elif sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
                 reTry = sheet1.row(i)[2].value 
             mousemove(img,reTry)
-            print("鼠标移动到图片\n"+img+" 的位置")               
+            print("鼠标移动到图片\n"+img+" 的位置") 
+        elif cmdType.value == 8.0 :
+            #取图片名称
+            img = imgpath+"\\"+ sheet1.row(i)[1].value   
+            #取重试次数
+            reTry = 1
+            if skip:
+                reTry=0
+            elif sheet1.row(i)[2].ctype == 2 and sheet1.row(i)[2].value != 0:
+                reTry = sheet1.row(i)[2].value 
+
         i += 1

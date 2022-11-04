@@ -1,4 +1,3 @@
-import os
 import time
 from gooey import Gooey, GooeyParser
 import mainwork,Datecheck,tool
@@ -36,20 +35,20 @@ def Atri():
     #制作图形化界面
     # 
     # 
-    nowpath=os.getcwd()
     parser = GooeyParser(description="一个基于图像匹配的自动操作脚本") 
-    parser.add_argument('Excelpath', metavar="Excel路径", widget="FileChooser",default=nowpath+"\\test1.xlsx")
-    parser.add_argument('Imagepath', metavar="图片文件夹", widget="DirChooser",default=nowpath+"\\worktest")
+    parser.add_argument('Excelpath', metavar="Excel路径", widget="FileChooser",default="D:\GitHub\ATravelerRecognizeImage\\test1.xlsx")
+    parser.add_argument('Imagepath', metavar="图片文件夹", widget="DirChooser",default="D:\GitHub\ATravelerRecognizeImage\\worktest")
     parser.add_argument('-loop', help="是否无限循环?",metavar="循环",widget="CheckBox",action="store_true")
-    parser.add_argument('-skip', help="十次匹配不到图片跳过该指令",metavar="跳过",widget="CheckBox",action="store_true")
-    parser.add_argument('-mouseinterval', help="鼠标点击时间间隔/s",metavar="鼠标参数",type=float,default="0.2")
-    parser.add_argument('-mouseduration', help="执行指令鼠标移动持续时间/s",metavar="鼠标参数",type=float,default="0.2")
+    parser.add_argument('-skip', help="十次匹配不到图片跳过该图",metavar="跳过",widget="CheckBox",action="store_true")
+    parser.add_argument('-mouseclicktime','--mouse', help="点击间隔",metavar="设置鼠标参数")
+    
+    parser.add_argument('-mouseduration', help="持续时间",metavar="设置鼠标参数")
 
- #   verbosity = parser.add_mutually_exclusive_group()
- #   verbosity.add_argument('-t', dest='顺次式判断',
- #                         action="store_true", help="匹配到指定图片顺次运行指令")
- #   verbosity.add_argument('-q', dest='跳过式判断',
- #                          action="store_true", help="匹配到图片则跳过指令")
+    verbosity = parser.add_mutually_exclusive_group()
+    verbosity.add_argument('-t', '--verbozze', dest='verbose',
+                           action="store_true", help="Show more details")
+    verbosity.add_argument('-q', '--quiet', dest='quiet',
+                           action="store_true", help="Only output on error")
     args = parser.parse_args()
 
     ##start##
@@ -61,12 +60,12 @@ def Atri():
         if args.loop:
              #循环，无限运行
             while True:
-                mainwork.mainWork(sheet1,args.Imagepath,args.skip,args.mouseinterval,args.mouseduration)
+                mainwork.mainWork(sheet1,args.Imagepath,args.skip)
                 time.sleep(0.1)
                 print("完整流程结束一次，休息0.1秒~")
         else:
             #不循环，运行一次
-            mainwork.mainWork(sheet1,args.Imagepath,args.skip,args.mouseinterval,args.mouseduration)
+            mainwork.mainWork(sheet1,args.Imagepath,args.skip)
             print("成功运行流程一次~")  
     else:
         print('Excel表格数据输入有误!')
