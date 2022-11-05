@@ -1,5 +1,5 @@
 # 定义数据检查
-# cmdType.value  1.0 左键单击    2.0 左键双击  3.0 右键单击  4.0 输入  5.0 等待  6.0 滚轮 
+# cmdType.value  1.0 左键单击    2.0 左键双击  3.0 右键单击  4.0 输入  5.0 等待  6.0 滚轮 7.0 移动 8.0 截屏
 # ctype     空：0
 #           字符串：1
 #           数字：2
@@ -19,13 +19,13 @@ def dataCheck(sheet1):
         cmdType = sheet1.row(i)[0]
         if (cmdType.value != 1.0 and cmdType.value != 2.0 and cmdType.value != 3.0 
             and cmdType.value != 4.0 and cmdType.value != 5.0 and cmdType.value != 6.0
-            and cmdType.value !=7.0):
+            and cmdType.value !=7.0 and cmdType.value !=8.0):
             print('第1列，第',i+1,"行,请输入正确的操作类型（数字）")
             checkCmd = False
         # 第2列 内容检查
         cmdValue = sheet1.row(i)[1]
         # 读图点击类型指令，内容必须为字符串类型
-        if cmdType.value ==1.0 or cmdType.value == 2.0 or cmdType.value == 3.0:
+        if cmdType.value ==1.0 or cmdType.value == 2.0 or cmdType.value == 3.0 or cmdType.value == 7.0:
             if cmdValue.ctype != 1:
                 print('第2列，第',i+1,"行,数据输入错误")
                 checkCmd = False
@@ -44,5 +44,6 @@ def dataCheck(sheet1):
             if cmdValue.ctype != 2:
                 print('第2列，第',i+1,"行,数据输入错误")
                 checkCmd = False
+        # 截屏事件，内容必须为"0,0,200,300"的格式
         i += 1
     return checkCmd

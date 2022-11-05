@@ -29,3 +29,11 @@ def readexcel(filepath):
     #通过索引获取表格sheet页，只需要sheet1即可
     sheet1 = wb.sheet_by_index(0)
     return sheet1
+
+#读取excel表格中的范围值，并转换为数组
+def readregion(strregion):
+    region=strregion.split(",")
+    if len(region)==1:
+        region=strregion.split("，")
+    return region
+
