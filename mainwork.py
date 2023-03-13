@@ -111,6 +111,7 @@ def mainWork(sheet1,imgpath,skip,time1,time2,saveimage,loopcount):
                 reTry = sheet1.row(i)[2].value
             mouseClick(1,"left",img,reTry,time1,time2)
             print("单击左键",img)
+
         #2代表双击左键
         elif cmdType.value == 2.0:
             #取图片名称
@@ -123,6 +124,7 @@ def mainWork(sheet1,imgpath,skip,time1,time2,saveimage,loopcount):
                 reTry = sheet1.row(i)[2].value
             mouseClick(2,"left",img,reTry,time1,time2)
             print("左键双击",img)
+
         #3代表右键
         elif cmdType.value == 3.0:
             #取图片名称
@@ -135,25 +137,30 @@ def mainWork(sheet1,imgpath,skip,time1,time2,saveimage,loopcount):
                 reTry = sheet1.row(i)[2].value
             mouseClick(1,"right",img,reTry,time1,time2)
             print("右键单击",img) 
+
         #4代表输入
         elif cmdType.value == 4.0:
             inputValue = sheet1.row(i)[1].value
             pyperclip.copy(inputValue)
             pyautogui.hotkey('ctrl','v')
             time.sleep(0.5)
-            print("输入:",inputValue)                                        
+            print("输入:",inputValue)
+
         #5代表等待
         elif cmdType.value == 5.0:
             #取等待时间
             waitTime = sheet1.row(i)[1].value
             time.sleep(waitTime)
             print("等待",waitTime,"秒")
+
         #6代表滚轮
         elif cmdType.value == 6.0:
             #取滚动距离
             scroll = sheet1.row(i)[1].value
             pyautogui.scroll(int(scroll))
-            print("滚轮滑动，距离：",int(scroll))  
+            print("滚轮滑动，距离：",int(scroll)) 
+
+        #7代表移动鼠标
         elif cmdType.value == 7.0:
             #取图片名称
             img = imgpath+"\\"+ sheet1.row(i)[1].value   
@@ -165,6 +172,8 @@ def mainWork(sheet1,imgpath,skip,time1,time2,saveimage,loopcount):
                 reTry = sheet1.row(i)[2].value 
             mousemove(img,reTry)
             print("鼠标移动到图片\n"+img+" 的位置") 
+
+        #8代表捕获截图
         elif cmdType.value == 8.0 :
            region=sheet1.row(i)[1].value
            if region=="":
@@ -175,4 +184,10 @@ def mainWork(sheet1,imgpath,skip,time1,time2,saveimage,loopcount):
             pyautogui.screenshot(saveimage+"\\screenshot_"+loopcount+str(imagecount)+".png",region=regionlist)
             imagecount=imagecount+1
            print("截图已经保存到"+saveimage) 
+
+        #9代表键盘按键（立即释放）
+        elif cmdType.value == 9.0 :
+            aimkey=sheet1.row(i)[1].value
+            keyboardClick(aimkey)
+            print("“"+aimkey+"”键按下一次") 
         i += 1
