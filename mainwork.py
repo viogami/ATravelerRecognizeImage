@@ -175,5 +175,4 @@ def mainWork(sheet1,imgpath,skip,time1,time2,saveimage,loopcount):
             pyautogui.screenshot(saveimage+"\\screenshot_"+loopcount+str(imagecount)+".png",region=regionlist)
             imagecount=imagecount+1
            print("截图已经保存到"+saveimage) 
-
         i += 1
