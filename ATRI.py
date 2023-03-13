@@ -17,7 +17,7 @@ import mainwork,Datecheck,tool
                'menuTitle': '关于',
                'name': 'ATravelerRecongnizeImage',
                'description': '作者:kagami',
-               'version': 'v1.2',
+               'version': 'v1.3',
                'website': 'https://github.com/Violetmail/ATravelerRecognizeImage'}]
        },
        {
@@ -26,7 +26,7 @@ import mainwork,Datecheck,tool
                'type': 'MessageDialog',
                'menuTitle': '使用方法',
                'caption': '使用方法',
-               'message': 'how to use...',},
+               'message': '在commands.xlsx文件中配置每一步的指令，根据表格提示填入对应的内容，指令123456789，分别具备单击，双击，右键单击，输入，等待，滚动，移动，截图，键盘按键的功能。',},
                { 
                 'type': 'MessageDialog',
                'menuTitle': '注意事项',
