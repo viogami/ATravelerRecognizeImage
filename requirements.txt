@@ -1,7 +1,13 @@
 pyautogui
+
 opencv-python
+
 pillow
+
 time
+
 xlrd==1.2.0
+
 pyperclip
+
 gooey

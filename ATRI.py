@@ -1,7 +1,7 @@
 import os
 import time
 from gooey import Gooey, GooeyParser
-import mainwork,Datecheck,tool
+import mainwork_first,mainwork,Datecheck,tool
 
 @Gooey(
         advanced=True,
@@ -17,7 +17,7 @@ import mainwork,Datecheck,tool
                'menuTitle': '关于',
                'name': 'ATravelerRecongnizeImage',
                'description': '作者:kagami',
-               'version': 'v1.3',
+               'version': 'v1.4',
                'website': 'https://github.com/Violetmail/ATravelerRecognizeImage'}]
        },
        {
@@ -46,24 +46,22 @@ def Atri():
     
     parser.add_argument('-loop', help="是否无限循环?",metavar="循环",widget="CheckBox",action="store_true",default=True)
     parser.add_argument('-skip', help="十次匹配不到目标图片则跳过该指令",metavar="跳过",widget="CheckBox",action="store_true")
+    parser.add_argument('-retrytime', help="单一指令重复间隔",metavar="重复间隔",widget="DecimalField",type=float,default="0.1")
     parser.add_argument('-saveimage', help="截图保存文件夹位置",metavar="截图",widget="DirChooser",default=nowpath+"\\ScreenShot")
 
     mouseattribute=parser.add_argument_group("鼠标参数")
     mouseattribute.add_argument('-mouseinterval', help="鼠标点击时间间隔/s",metavar="intervaltime",widget="DecimalField",type=float,default="0.2")
     mouseattribute.add_argument('-mouseduration', help="执行指令鼠标移动持续时间/s",metavar="durationtime",widget="DecimalField",type=float,default="0.2")
 
+ #   browser= parser.add_argument_group("JavaScript运行设置")
+ #   browser.add_argument('-chrome', dest='Chrome浏览器',action="store_true", help="js脚本的运行只能实现在Chrome浏览器中",default=True)
+ #   browser.add_argument('-edge', dest='Edge浏览器',action="store_true", help="js脚本的运行只能实现在Edge浏览器中")
+#    browser.add_argument('jspath', metavar="JS脚本路径", widget="FileChooser",default=nowpath+"\\web-JS\\user.js")
 
  #   commands=parser.add_argument_group("新建指令")
  #   commands.add_argument('-commands_num', help="选择要添加的指令",metavar="操作",widget="Dropdown")
  #   commands.add_argument('-commands_image', help="选择图片或者附加值",metavar="操作参数",default=" ")
  #   commands.add_argument('-commands_repeat', help="指令是否重复",metavar=" ",widget="CheckBox",action="store_true")
-
-
- #   verbosity = parser.add_mutually_exclusive_group()
- #   verbosity.add_argument('-t', dest='顺次式判断',
- #                         action="store_true", help="匹配到指定图片顺次运行指令")
- #   verbosity.add_argument('-q', dest='跳过式判断',
- #                          action="store_true", help="匹配到图片则跳过指令")
 
     args = parser.parse_args()
 
@@ -74,22 +72,27 @@ def Atri():
     sheet1=tool.readexcel(args.Excelpath)
     #数据检查
     checkCmd = Datecheck.dataCheck(sheet1)
+
     if checkCmd:
-        loopcount='a'
+        loopcount='A'
         if args.loop:
-             #循环，无限运行
+            #所有指令预先运行一次
+            mainwork_first.mainWork(sheet1,args.Imagepath,args.skip,args.mouseinterval,args.mouseduration,args.saveimage,loopcount,args.retrytime)
+            print("指令流程结束一次，休息0.1秒~")
+            #循环，无限运行
             while True:
-                mainwork.mainWork(sheet1,args.Imagepath,args.skip,args.mouseinterval,args.mouseduration,args.saveimage,loopcount)
+                mainwork.mainWork(sheet1,args.Imagepath,args.skip,args.mouseinterval,args.mouseduration,args.saveimage,loopcount,args.retrytime)
                 loopcount=chr(ord(loopcount)+1)
                 time.sleep(0.1)
                 print("指令流程结束一次，休息0.1秒~")
         else:
             #不循环，运行一次
-            mainwork.mainWork(sheet1,args.Imagepath,args.skip,args.mouseinterval,args.mouseduration,args.saveimage,loopcount)
+            mainwork_first.mainWork(sheet1,args.Imagepath,args.skip,args.mouseinterval,args.mouseduration,args.saveimage,loopcount,args.retrytime)
             print("成功运行流程一次~")  
     else:
-        print('Excel表格数据输入有误!')
+        print('Excel表格数据输入有误,请检查指令表格')
     
+#def Atri_browser(browser):
 
 if __name__ == '__main__':
     Atri()

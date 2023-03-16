@@ -32,9 +32,16 @@ def mouseClick(clickTimes,lOrR,img,reTry,intervaltime,durationtime,retrytime):
             i += 1
             time.sleep(retrytime)
 
-    #-1表示只运行一次，运行后跳出循环
+    #-1等同于1
     elif reTry == -1:
-        print("跳过该指令")
+        while True:
+            location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
+            if location is not None:
+                pyautogui.click(location.x,location.y,clicks=clickTimes,interval=intervaltime,duration=durationtime,button=lOrR)
+                break
+            print("未匹配到图片"+img+","+str(retrytime)+"秒后重试")
+            time.sleep(retrytime)
+
     #retry=0,意味着多次匹配不到可以跳过
     elif reTry==0:
         location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
@@ -50,7 +57,7 @@ def mouseClick(clickTimes,lOrR,img,reTry,intervaltime,durationtime,retrytime):
 
 #定义鼠标移动事件
 def mousemove(img,reTry,retrytime):
-    if reTry == 1:
+    if reTry ==1:
         while True:
             location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
             if location is not None:
@@ -70,13 +77,19 @@ def mousemove(img,reTry,retrytime):
                 reTry=0
                 mousemove(img,reTry)
                 break
-
             i += 1
             time.sleep(retrytime)
 
-    #-1表示只运行一次，运行后跳出循环
-    elif reTry == -1:
-        print("跳过该指令")
+    #-1等同于1
+    if reTry ==-1:
+        while True:
+            location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
+            if location is not None:
+                pyautogui.moveTo(location.x,location.y,duration=0.2)
+                break
+            print("未匹配到图片"+img+","+str(retrytime)+"秒后重试")
+            time.sleep(retrytime)
+            
     #retry=0,意味着多次匹配不到可以跳过
     elif reTry==0:
         location=pyautogui.locateCenterOnScreen(img,confidence=0.9)
@@ -94,7 +107,9 @@ def mousemove(img,reTry,retrytime):
 #定义键盘事件
 def keyboardClick(key,reTry,retrytime):
     if reTry==-1:
-        print("跳过该指令")
+        pyautogui.press(key)
+        time.sleep(retrytime)
+        print("点击了一次，休息"+str(retrytime)+"秒")
     else:
         for i in range(int(reTry)):
             pyautogui.press(key)
