@@ -2,9 +2,6 @@ import os
 import xlrd
 import pyautogui
 
-#将鼠标移到屏幕的左上角，来抛出failSafeException异常
-pyautogui.FAILSAFE = True
-
 #定义判断图像是否存在 参数：img:图片位置或名称  similar:相似度
 def imgexist(img,similar):
     location=pyautogui.locateCenterOnScreen(img,confidence=similar)
