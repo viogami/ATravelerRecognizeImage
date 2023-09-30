@@ -37,6 +37,9 @@
 - [x] 优化gui界面
 - [x] 优化Excel表，添加了更加准确的数据检查。
 
+## 界面预览
+
+![sample](https://github.com/Violetmail/ATravelerRecognizeImage/blob/master/ScreenShot/sample.png)
 
 ## 使用方法：
 在commands.xlsx文件中配置每一步的指令，根据表格提示填入对应的内容(你也可以填入数字指令：0123456789，分别具备鼠标拖拽，单击，双击，右键单击，输入，等待，滚动，移动，截图，键盘按键的功能)。
