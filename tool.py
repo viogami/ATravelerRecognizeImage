@@ -29,8 +29,13 @@ def readexcel(filepath):
 
 #读取excel表格中的范围值，并转换为数组
 def readregion(strregion):
-    region=strregion.split(",")
+    region=strregion.strip("[]").split(",")
     if len(region)==1:
-        region=strregion.split("，")
+        region=strregion.strip("[]").split("，")
     return region
+
+#定义鼠标移动到指定坐标位置的函数
+def movemouse_to_coordinates(x, y):
+    # 移动鼠标到指定坐标位置
+    pyautogui.moveTo(x, y, duration=0.5)  # 可以调整移动的速度（持续时间）
 

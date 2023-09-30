@@ -17,7 +17,7 @@ import mainwork_first,mainwork,Datecheck,tool
                'menuTitle': '关于',
                'name': 'ATravelerRecongnizeImage',
                'description': '作者:kagami',
-               'version': 'v1.4',
+               'version': 'v1.5',
                'website': 'https://github.com/Violetmail/ATravelerRecognizeImage'}]
        },
        {
@@ -31,7 +31,7 @@ import mainwork_first,mainwork,Datecheck,tool
                 'type': 'MessageDialog',
                'menuTitle': '注意事项',
                'caption': '注意事项',
-               'message': 'python版本不要超过3.8，因为在3.9版本中改变了xlrd包的部分函数名，导致读取.xlsx文件会出现异常',
+               'message': '- 文件夹必须放在英文路径下\n- python版本不要超过3.8，因为在3.9版本中改变了xlrd包的部分函数名，导致读取.xlsx文件会出现异常\n- 鼠标点击和移动默认为图片的中心位置',
                }
                ]
        }
@@ -56,7 +56,7 @@ def Atri():
  #   browser= parser.add_argument_group("JavaScript运行设置")
  #   browser.add_argument('-chrome', dest='Chrome浏览器',action="store_true", help="js脚本的运行只能实现在Chrome浏览器中",default=True)
  #   browser.add_argument('-edge', dest='Edge浏览器',action="store_true", help="js脚本的运行只能实现在Edge浏览器中")
-#    browser.add_argument('jspath', metavar="JS脚本路径", widget="FileChooser",default=nowpath+"\\web-JS\\user.js")
+ #   browser.add_argument('jspath', metavar="JS脚本路径", widget="FileChooser",default=nowpath+"\\web-JS\\user.js")
 
  #   commands=parser.add_argument_group("新建指令")
  #   commands.add_argument('-commands_num', help="选择要添加的指令",metavar="操作",widget="Dropdown")
@@ -92,8 +92,6 @@ def Atri():
     else:
         print('Excel表格数据输入有误,请检查指令表格')
     
-#def Atri_browser(browser):
-
 if __name__ == '__main__':
     Atri()
 ##
