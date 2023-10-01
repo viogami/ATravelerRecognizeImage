@@ -65,8 +65,6 @@ def Atri():
 
     args = parser.parse_args()
 
-
-
     ##start##
     print('欢迎使用,萝卜子开始运行...')
     sheet1=tool.readexcel(args.Excelpath)

@@ -4,10 +4,10 @@ opencv-python
 
 pillow
 
-time
-
 xlrd==1.2.0
 
 pyperclip
 
-gooey
+Gooey==1.0.8.1
+
+colored==1.4.4
