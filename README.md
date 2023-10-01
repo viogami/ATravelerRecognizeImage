@@ -39,7 +39,7 @@
 
 ## 界面预览
 
-![sample](https://github.com/Violetmail/ATravelerRecognizeImage/blob/master/ScreenShot/sample.png)
+![sample](https://github.com/Violetmail/ATravelerRecognizeImage/assets/90465552/eb214b79-1b57-4796-9f6d-f1d360df02c0)
 
 ## 使用方法：
 - 在commands.xlsx文件中配置每一步的指令，根据表格提示填入对应的内容(你也可以填入数字指令：0123456789，分别具备鼠标拖拽，单击，双击，右键单击，输入，等待，滚动，移动，截图，键盘按键的功能)。
@@ -71,13 +71,15 @@
 | 1    | search.png                    | -1                            |                     | 点击搜索栏，只运行一次      |
 | 4    | www.baidu.com                 | -1                            |                     | 输入百度网址，只运行一次     |
 | 键盘按键 | enter                         |                               |                     | 输入回车             |
-| 键盘按键 | F12                           | -1                            |                     | 进入开发者模式，只运行一次    |
+| 9    | F12                           | -1                            |                     | 进入开发者模式，只运行一次    |
 | 1    | control.png                   |                               |                     | 点击控制台，准备输入代码     |
 | 4    | console.log("Hello world!");  |                               |                     | 输入js代码           |
 | 键盘按键 | enter                         |                               |                     | 输入回车，打印log       |
 | 8    | [200,500,500,800]             |                               |                     | 区域截图，并保存         |
-| 9    | F5                            |                               |                     | 刷新页面             |
+| 移动   | [200,500]                     |                               |                     | 将鼠标移动到指定位置       |
 | 等待   | 5                             |                               |                     | 等待5秒，然后循环输入js    |
+|      |                               |                               |                     |                  |
+
 
 每一步的逻辑备注在注释里，这样就可以实现一直输入js，一直截图的效果，当然这只是一个简单的效果，更多复杂的搭配根据指令而异。
 
